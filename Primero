@@ -1,0 +1,17 @@
+const int sensorPin = A0;  // Pin analógico donde está conectado el LM35
+float temperaturaC;         // Variable para almacenar la temperatura en °C
+
+void setup() {
+  Serial.begin(9600);  // Iniciar la comunicación serial
+}
+
+void loop() {
+  int lectura = analogRead(sensorPin);  // Leer el valor analógico del sensor
+  temperaturaC = (lectura * 5.0 / 1023.0) * 100.0; // Convertir la lectura a °C
+
+  Serial.print("Temperatura: ");
+  Serial.print(temperaturaC);
+  Serial.println(" °C");
+
+  delay(1000);  // Esperar 1 segundo antes de la siguiente lectura
+}
