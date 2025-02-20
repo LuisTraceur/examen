@@ -1,0 +1,22 @@
+const int sensorPin = 2;  // Pin digital donde está conectado el sensor de inclinación
+const int buzzerPin = 3;  // Pin donde está conectado el buzzer
+
+void setup() {
+  pinMode(sensorPin, INPUT); // Configurar el sensor como entrada
+  pinMode(buzzerPin, OUTPUT); // Configurar el buzzer como salida
+  Serial.begin(9600); // Iniciar la comunicación serial
+}
+
+void loop() {
+  int estadoSensor = digitalRead(sensorPin); // Leer el estado del sensor
+
+  if (estadoSensor == HIGH) { // Si el sensor detecta inclinación
+    digitalWrite(buzzerPin, HIGH); // Encender el buzzer
+    Serial.println("¡Alerta! Inclinación detectada");
+  } else {
+    digitalWrite(buzzerPin, LOW); // Apagar el buzzer
+    Serial.println("Sin inclinación");
+  }
+
+  delay(200); // Pequeña pausa para evitar lecturas erráticas
+}
