@@ -1,0 +1,42 @@
+const int trigPin = 9;    // Pin de activación del sensor HC-SR04
+const int echoPin = 10;   // Pin de recepción del sensor HC-SR04
+const int ledPin = 3;     // Pin donde está conectado el LED
+
+void setup() {
+  pinMode(trigPin, OUTPUT);  
+  pinMode(echoPin, INPUT);  
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);  // Iniciar comunicación serial
+}
+
+void loop() {
+  long duration;
+  float distance;
+
+  // Enviar un pulso ultrasónico
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Medir el tiempo de respuesta
+  duration = pulseIn(echoPin, HIGH);
+
+  // Calcular distancia en cm
+  distance = duration * 0.034 / 2;
+
+  // Mostrar distancia en el monitor serial
+  Serial.print("Distancia: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  // Si la distancia es menor a 10 cm, encender el LED
+  if (distance < 10) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  delay(500);  // Pequeña pausa para estabilidad
+}
